@@ -21,17 +21,23 @@ Experiments are in `experiments/`.
 Directory `experiments/denoising-autoencoder`.
 
 Train an autoencoder to reconstruct a corrupted 3d lung mask. Masks are corrupted to resemble failure to segment high density pathologies.
+The autoencoder is fully convolutional with the following layers 
+
+TODO: specify layers
+
 
 There are three versions of the experiments.
 
-| Name      | Description                                           |
-|-----------|-------------------------------------------------------|
-| Version 0 | Use 5mm isotropic resolution and always corrupt mask. |
-| Version 1 | Use 2.5mm isotropic resolution and always corrupt.    |
-| Version 2 | Use 2.5mm isotropic resolution and corrupt 3/4.       |
+| Name      | Description                                             |
+|-----------|---------------------------------------------------------|
+| Version 0 | Use 5mm isotropic resolution and always corrupt masks   |
+| Version 1 | Use 2.5mm isotropic resolution and always corrupt masks |
+| Version 2 | Use 2.5mm isotropic resolution and corrupt 3/4 masks    |
 
 
 Parameters for each version are stored in `parameters.py`. Adjust `batch_size` as needed, version 1 and 2 requires around 20MB GPU RAM.
+
+`monai.losses.DiceLoss `is used for all experiments
 
 
 ### Train
@@ -39,15 +45,19 @@ Train each version with
 
 	python train.py <version-number>
 	
-The two models with lowest validation loss are kept.
+or all version sequentially with
+
+	bash train_all.sh
+	
+The two models with lowest validation loss are kept. 
 
 Approximate runtime on RTX3090
 
 | Name      | Approximate wall clock time |
-|-----------|-------------------------------------------------------|
+|-----------|-----------------------------|
 | Version 0 | 11 min :|
-| Version 1 | :|
-| Version 2 | :|
+| Version 1 | 38 min :|
+| Version 2 | 40 min :|
 
 
 
@@ -56,5 +66,10 @@ Predict each version with
 
 	python predict.py <model-checkpoint> <outdir> <version-number> [--with-corruptions]
 	
-The flag `--with-corruptions` will enable data corruption on all samples before prediction.
+or all version sequentially with
 
+	bash predict_all.sh
+	
+where you must set `v*_checkpoint` manually to the desired checkpoint.
+		
+The flag `--with-corruptions` will enable data corruption on all samples before prediction.
