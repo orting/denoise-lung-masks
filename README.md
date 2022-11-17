@@ -53,11 +53,11 @@ The two models with lowest validation loss are kept.
 
 Approximate runtime on RTX3090
 
-| Name      | Approximate wall clock time |
-|-----------|-----------------------------|
-| Version 0 | 11 min :|
-| Version 1 | 38 min :|
-| Version 2 | 40 min :|
+| Name      | Approximate wall clock time  |
+|-----------|-----------------------------:|
+| Version 0 |                       11 min |
+| Version 1 |                       38 min |
+| Version 2 |                       40 min |
 
 
 
