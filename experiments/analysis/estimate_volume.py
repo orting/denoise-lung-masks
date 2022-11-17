@@ -11,11 +11,12 @@ def main():
     parser.add_argument('inpath', type=str, nargs='+',
                         help="Path to .npz file with 'mask', 'recon', 'image'"
                         )
-    parser.add_argument('--plot', action='store_true')
+    parser.add_argument('--plot-path', type=str, help='Path to store plot', default=None)
+    parser.add_argument('--show-plot', action='store_true')
     args = parser.parse_args()
 
     print('path,mask_volume,recon_volume,bad_mask_volume,recon_mask_ratio,bad_mask_mask_ratio')
-    if args.plot:
+    if args.plot_path:
         values = []
     for path in args.inpath:
         loaded = np.load(path)
@@ -34,10 +35,10 @@ def main():
             bad_mask_mask_ratio,
         ]
         print(*row, sep=',')
-        if args.plot:
+        if args.plot_path is not None:
             values.append(row[1:])
             
-    if args.plot:
+    if args.plot_path is not None:
         values = np.array(values)
         _, axs = plt.subplots(1,3,figsize=(30,10))
         axs[0].plot(values[:,0], 'b+')
@@ -54,7 +55,9 @@ def main():
         axs[2].legend(['corrupted/ref'])
         axs[1].set_title('(corrupted mask volume)/(reference mask volume)')
         plt.tight_layout()
-        plt.show()
+        plt.savefig(args.plot_path)
+        if args.show_plot:
+            plt.show()
 
     
 if __name__ == '__main__':
