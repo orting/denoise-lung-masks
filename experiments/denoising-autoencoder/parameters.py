@@ -6,7 +6,7 @@ def get_params(version):
     assert version in (0,1,2)
     if version == 0:
         params = {
-            'data_dir' : '../data/osic_fibrosis_masks/preprocessed/lung-5mm/',
+            'data_dir' : '../../data/osic_fibrosis_masks/preprocessed/lung-5mm/',
             'data_info_file' : 'ae-data-info-5mm.csv',
             'batch_size' : 16,
             'mask_sampler' : MotherOfGaussianSpheres(
@@ -21,7 +21,7 @@ def get_params(version):
         }
     else:
         params = {
-            'data_dir' : '../data/osic_fibrosis_masks/preprocessed/lung-2.5mm/',
+            'data_dir' : '../../data/osic_fibrosis_masks/preprocessed/lung-2.5mm/',
             'data_info_file' : 'ae-data-info-2.5mm.csv',
             'batch_size' : 8,
             'mask_sampler' : MotherOfGaussianSpheres(

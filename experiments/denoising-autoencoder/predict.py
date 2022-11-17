@@ -7,7 +7,7 @@ import torch
 
 from data_modules.transformations import RandomMask
 from denoise_lung_masks import LungDataModule, AutoEncoderWrapper
-from .parameters import get_params
+from parameters import get_params
 
 def main():
     # pylint: disable=too-many-locals
