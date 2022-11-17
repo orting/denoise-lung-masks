@@ -10,6 +10,7 @@ def main():
     '''Produces 2.5mm and 5mm isotropic volumes'''
     data_dir = 'osic_fibrosis_masks'
     data_info = f'{data_dir}/data-info.csv'
+    download = True
     transforms_all = {
         '2.5mm' : tio.Compose([
             tio.transforms.ToCanonical(),
@@ -24,7 +25,6 @@ def main():
             tio.transforms.Clamp(0, 1)
         ])
     }
-    download = True
     for resolution, transforms in transforms_all.items():
         transforms = {
             'train' : transforms,
@@ -43,10 +43,11 @@ def main():
         data_module.setup()
         # We only need to do the download/unpack part once and it takes some time
         download = False
-
+        print('Preprocessing')
         for ds_name, loader in [('train', data_module.train_dataloader()),
                                 ('validation', data_module.val_dataloader()),
                                 ('test', data_module.test_dataloader())]:
+            print(ds_name)
             out_dir = os.path.join(data_dir, 'preprocessed', f'lung-{resolution}', ds_name)
             os.makedirs(out_dir, exist_ok=True)
             for i, sample in enumerate(loader):
