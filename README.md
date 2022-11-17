@@ -3,6 +3,15 @@ Experiments with an autoencoder to reconstruct corrupted 3d lung mask.
 Masks are corrupted to resemble failure to segment high density pathologies
 
 ## Data
+Segmentation masks are from 
+
+[https://www.kaggle.com/sandorkonya/ct-lung-heart-trachea-segmentation](https://www.kaggle.com/sandorkonya/ct-lung-heart-trachea-segmentation)
+
+which are derived from
+
+[https://www.kaggle.com/competitions/osic-pulmonary-fibrosis-progression/overview](https://www.kaggle.com/competitions/osic-pulmonary-fibrosis-progression/overview)
+
+
 Run `data/preprocess_osic_masks.py` to unpack and preprocess the lung masks. It will produce both 5mm and 2.5mm lung masks.
 If the data archive is not already downloaded to the `data/osic_fibrosis_masks/` directory, the script will print instructions for downloading.
 
